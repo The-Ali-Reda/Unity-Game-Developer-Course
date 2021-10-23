@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    private Rigidbody _rigidbody;
-    private AudioSource _audioSource;
-
     [SerializeField]
     private float _thrustPower = 100f;
     [SerializeField]
     private float _rotationThrust = 1f;
+    [SerializeField]
+    private AudioClip _mainEngine;
+
+    private Rigidbody _rigidbody;
+    private AudioSource _audioSource;
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -37,7 +39,7 @@ public class Movement : MonoBehaviour
         {
             _rigidbody.AddRelativeForce(Vector3.up* _thrustPower * Time.deltaTime, ForceMode.Impulse);
             if(!_audioSource.isPlaying)
-                _audioSource.Play();
+                _audioSource.PlayOneShot(_mainEngine);
 
         }
         else
