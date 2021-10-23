@@ -16,6 +16,9 @@ public class CollisionHandler : MonoBehaviour
     private ParticleSystem _crashParticles;
     private AudioSource _audioSource;
     bool isTransitioning = false;
+
+    //this variable is only for the cheat script
+    public bool isCollisionActive = true;
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -23,7 +26,7 @@ public class CollisionHandler : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //no point in colliding after dying or passing
-        if (isTransitioning)
+        if (isTransitioning||!isCollisionActive)
             return;
         //other object
         switch (collision.gameObject.tag)
@@ -67,7 +70,6 @@ public class CollisionHandler : MonoBehaviour
     {
         var levelIndex = SceneManager.GetActiveScene().buildIndex;
         var nextLevelIndex = (levelIndex + 1) % SceneManager.sceneCountInBuildSettings;
-        Debug.Log(nextLevelIndex);
         SceneManager.LoadScene(nextLevelIndex, LoadSceneMode.Single);
     }
 }
