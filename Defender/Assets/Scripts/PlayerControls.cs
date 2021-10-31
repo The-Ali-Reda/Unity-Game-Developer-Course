@@ -45,11 +45,18 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ProcessQuit();
         ProcessTranslation();
         ProcessRotation();
         ProcessFiring();
     }
-
+    private void ProcessQuit()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
     private void ProcessRotation()
     {
         float pitchDueToPosition = transform.localPosition.y * _positionPitchFactor;

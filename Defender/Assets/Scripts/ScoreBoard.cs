@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class ScoreBoard : MonoBehaviour
 {
-    int score = 0;
+    public int Score { get; private set; } = 0;
     [SerializeField]
     private TMP_Text _scoreText;
     public void IncreaseScore(int amountToIncrease)
     {
-        score += amountToIncrease;
-        _scoreText.text = $"score: {score}";
+        Score += amountToIncrease;
+        _scoreText.text = $"score: {Score}";
     }
 }
