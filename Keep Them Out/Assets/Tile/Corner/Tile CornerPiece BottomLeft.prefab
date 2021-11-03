@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: -2432090755550338912, guid: 626410dc07212d749823da2540a223bb, type: 3}
+    - target: {fileID: 2521393455815037259, guid: 72d25631a3ac04340b27d047bcb86011, type: 3}
+      propertyPath: isPlaceable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5693745277386466289, guid: 72d25631a3ac04340b27d047bcb86011, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -57,7 +61,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5693745277386466290, guid: 72d25631a3ac04340b27d047bcb86011, type: 3}
       propertyPath: m_Name
-      value: Tile CornerPiece
+      value: Tile CornerPiece BottomLeft
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72d25631a3ac04340b27d047bcb86011, type: 3}
