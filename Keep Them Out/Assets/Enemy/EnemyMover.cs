@@ -1,22 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyMover : MonoBehaviour
 {
-    [SerializeField]
+
     private List<Waypoint> path = new List<Waypoint>();
     [SerializeField]
     [Range(0,5)]
     private float _speed = 1f;
-    private GameObject childMesh;
+    private GameObject enemyMesh;
+    private Enemy _enemy;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        childMesh = GetComponentInChildren<MeshRenderer>().gameObject;
+        _enemy = GetComponent<Enemy>();
+        enemyMesh = GetComponentInChildren<MeshRenderer>().gameObject;
+    }
+    private void OnEnable()
+    {
+        FindPath();
+        ReturnToStart();
         StartCoroutine(FollowPath());
     }
+    void FindPath()
+    {
+        path.Clear();
+        var waypoints = GameObject.FindGameObjectsWithTag("Path");
+        foreach(var waypoint in waypoints)
+        {
+            var waypointComponent = waypoint.GetComponent<Waypoint>();
+            path.Add(waypointComponent);
+        }
 
+    }
+    void ReturnToStart()
+    {
+        transform.position = path[0].transform.position;
+    }
     IEnumerator FollowPath()
     {
         foreach(var waypoint in path)
@@ -30,13 +52,13 @@ public class EnemyMover : MonoBehaviour
             var lerpPercent = 0f;
             var direction = endPosition - startPosition;
             var endRotation = Quaternion.LookRotation(direction);
-            var startRotation = childMesh.transform.rotation;
-            if (childMesh.transform.forward != direction.normalized)
+            var startRotation = enemyMesh.transform.rotation;
+            if (enemyMesh.transform.forward != direction.normalized)
             {
                 while (lerpPercent < 1)
                 {
                     lerpPercent += Time.deltaTime * _speed;
-                    childMesh.transform.rotation = Quaternion.Lerp(startRotation, endRotation, lerpPercent);
+                    enemyMesh.transform.rotation = Quaternion.Lerp(startRotation, endRotation, lerpPercent);
                     yield return null;
                 }
             }
@@ -55,5 +77,7 @@ public class EnemyMover : MonoBehaviour
             }
             
         }
+        _enemy.StealGold();
+        gameObject.SetActive(false);
     }
 }

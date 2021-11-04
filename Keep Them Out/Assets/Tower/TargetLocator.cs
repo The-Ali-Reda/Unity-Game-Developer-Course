@@ -6,38 +6,67 @@ public class TargetLocator : MonoBehaviour
 {
     [SerializeField] 
     private Transform _weapon;
-    
+    [SerializeField]
+    private float _range = 15f;
     [SerializeField]
     [Range(0,5)]
     private float _speed = 1f;
-
+    [SerializeField]
+    private ParticleSystem _projectileParticles;
 
     private Transform _target;
 
     // Start is called before the first frame update
     private void Start()
     {
-        _target = FindObjectOfType<EnemyMover>()?.transform;
+        _target = FindObjectOfType<Enemy>()?.transform;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        _weapon.transform.LookAt(_target);
-        //StartCoroutine(AimWeapon());
+        FindClosestTarget();
+        AimWeapon();
     }
-    private IEnumerator AimWeapon()
+    private void FindClosestTarget()
     {
-        var enemyPosition = _target.position;
-        var startRotation = _weapon.rotation;
-        var direction = enemyPosition - transform.position;
-        var endRotation = Quaternion.LookRotation(direction);
-        var lerpPercent = 0f;
-        while (lerpPercent < 1)
+        var enemies = FindObjectsOfType<Enemy>();
+        Transform closestTarget = null;
+        float maxDistance = Mathf.Infinity;
+        foreach(var enemy in enemies)
         {
-            lerpPercent += Time.deltaTime * _speed;
-            _weapon.rotation = Quaternion.Lerp(startRotation, endRotation, lerpPercent);
-            yield return null;
+            if (!enemy.isActiveAndEnabled)
+                continue;
+            var targetDistance = Vector3.Distance(transform.position, enemy.transform.position);
+            if(targetDistance< maxDistance)
+            {
+                closestTarget = enemy.transform;
+                maxDistance = targetDistance;
+            }
         }
+        _target = closestTarget;
+    }
+    private void AimWeapon()
+    {
+        if (_target == null)
+        {
+            SetAttackingState(false);
+            return;
+        }
+        _weapon.transform.LookAt(_target);
+        var targetDistance = Vector3.Distance(transform.position, _target.position);
+        if(targetDistance < _range)
+        {
+            SetAttackingState(true);
+        }
+        else
+        {
+            SetAttackingState(false);
+        }
+    }
+    void SetAttackingState(bool isActive)
+    {
+        var emissionModule = _projectileParticles.emission;
+        emissionModule.enabled = isActive;
     }
 }

@@ -91,6 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5672325927823913723}
   - component: {fileID: -7829903397756912147}
+  - component: {fileID: 5954440130607937296}
   - component: {fileID: -9065536912283120774}
   - component: {fileID: 5178800862822109323}
   m_Layer: 6
@@ -127,35 +128,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb8caf55e362a404aa43bf51506716d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   _speed: 1
+--- !u!114 &5954440130607937296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5040643765344069697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc08035baa47bf64883b14f2defd28a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &-9065536912283120774
 BoxCollider:
   m_ObjectHideFlags: 0

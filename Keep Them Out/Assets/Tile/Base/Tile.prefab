@@ -47,7 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlaceable: 1
-  _towerPrefab: {fileID: 3219458064393657486, guid: 8a965e088bae16643aab3d07ccfd5e2e, type: 3}
+  _towerPrefab: {fileID: 600205814268833591, guid: 8a965e088bae16643aab3d07ccfd5e2e, type: 3}
+  _cost: 50
 --- !u!65 &-6221564704517870289
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -233,6 +234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624cbcd5a85be4a49978fbbf4dfee1c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  _blockedColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &897013867230001167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,8 +265,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190335
-  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
