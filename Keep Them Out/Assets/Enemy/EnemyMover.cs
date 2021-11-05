@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(Enemy))]
 public class EnemyMover : MonoBehaviour
 {
 
@@ -10,6 +11,11 @@ public class EnemyMover : MonoBehaviour
     [SerializeField]
     [Range(0,5)]
     private float _speed = 1f;
+
+    [SerializeField]
+    [Range(0, 5)]
+    private float _rotationSpeed = 1f;
+
     private GameObject enemyMesh;
     private Enemy _enemy;
     // Start is called before the first frame update
@@ -27,11 +33,12 @@ public class EnemyMover : MonoBehaviour
     void FindPath()
     {
         path.Clear();
-        var waypoints = GameObject.FindGameObjectsWithTag("Path");
-        foreach(var waypoint in waypoints)
+        var parent = GameObject.FindGameObjectWithTag("Path"); 
+        foreach(Transform child in parent.transform)
         {
-            var waypointComponent = waypoint.GetComponent<Waypoint>();
-            path.Add(waypointComponent);
+            var waypointComponent = child.GetComponent<Waypoint>();
+            if(waypointComponent!=null)
+                path.Add(waypointComponent);
         }
 
     }
@@ -57,7 +64,7 @@ public class EnemyMover : MonoBehaviour
             {
                 while (lerpPercent < 1)
                 {
-                    lerpPercent += Time.deltaTime * _speed;
+                    lerpPercent += Time.deltaTime * _rotationSpeed;
                     enemyMesh.transform.rotation = Quaternion.Lerp(startRotation, endRotation, lerpPercent);
                     yield return null;
                 }
@@ -77,6 +84,10 @@ public class EnemyMover : MonoBehaviour
             }
             
         }
+        FinishPath();
+    }
+    private void FinishPath()
+    {
         _enemy.StealGold();
         gameObject.SetActive(false);
     }

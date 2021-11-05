@@ -7,13 +7,24 @@ public class Tower : MonoBehaviour
     [SerializeField]
     private int _cost = 50;
     private Bank _bank;
+    private Bank bank
+    {
+        get
+        {
+            if (_bank == null)
+            {
+                _bank = FindObjectOfType<Bank>();
+            }
+            return _bank;
+        }
+    }
     public bool CreateTower(Vector3 position)
     {
-        // in an actual project this would be in some sort of manager object rather than here
-        _bank = FindObjectOfType<Bank>();
-        if (_bank == null || (_bank.CurrentBalance < _cost))
+        
+        Debug.Log($"Is bank null: {bank==null}");
+        if (bank == null || (bank.CurrentBalance < _cost))
             return false;
-        _bank.Withdraw(_cost);
+        bank.Withdraw(_cost);
         var createdObject = Instantiate(gameObject, position, Quaternion.identity);
         return true;
     }

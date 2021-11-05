@@ -7,8 +7,10 @@ public class ObjectPool : MonoBehaviour
     [SerializeField]
     private GameObject _enemyPrefab;
     [SerializeField]
+    [Range(0.1f, 30f)]
     private float _delay = 3f;
     [SerializeField]
+    [Range(0,50)]
     private int _poolSize = 5;
     List<GameObject> pool;
 

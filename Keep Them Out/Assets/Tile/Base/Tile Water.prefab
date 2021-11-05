@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &4829028139410049691
+--- !u!1001 &861238094732539949
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,9 +10,9 @@ PrefabInstance:
     - target: {fileID: 110104104964286471, guid: 72d25631a3ac04340b27d047bcb86011, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -2432090755550338912, guid: 626410dc07212d749823da2540a223bb, type: 3}
-    - target: {fileID: 2521393455815037259, guid: 72d25631a3ac04340b27d047bcb86011, type: 3}
-      propertyPath: isPlaceable
+      objectReference: {fileID: -2432090755550338912, guid: a847eae99d42cdf49b01d8ca9f52e595, type: 3}
+    - target: {fileID: 897013867230001167, guid: 72d25631a3ac04340b27d047bcb86011, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5693745277386466289, guid: 72d25631a3ac04340b27d047bcb86011, type: 3}
@@ -61,11 +61,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5693745277386466290, guid: 72d25631a3ac04340b27d047bcb86011, type: 3}
       propertyPath: m_Name
-      value: Tile CornerPiece BottomLeft
+      value: Tile Water
       objectReference: {fileID: 0}
-    - target: {fileID: 5693745277386466290, guid: 72d25631a3ac04340b27d047bcb86011, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
+    - target: {fileID: 6849408747526948151, guid: 72d25631a3ac04340b27d047bcb86011, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2521393455815037259, guid: 72d25631a3ac04340b27d047bcb86011, type: 3}
+    - {fileID: 1151487277026579627, guid: 72d25631a3ac04340b27d047bcb86011, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 72d25631a3ac04340b27d047bcb86011, type: 3}

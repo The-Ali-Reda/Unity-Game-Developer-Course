@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 1
+  _rotationSpeed: 3
 --- !u!114 &5954440130607937296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,6 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc08035baa47bf64883b14f2defd28a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _goldReward: 25
+  _goldPenalty: 25
 --- !u!65 &-9065536912283120774
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -167,4 +170,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHitpoints: 5
-  currentHitpoints: 0
+  _difficultyRamp: 1
