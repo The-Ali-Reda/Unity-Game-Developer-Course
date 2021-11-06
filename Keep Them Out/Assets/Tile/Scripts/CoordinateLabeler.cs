@@ -12,13 +12,17 @@ public class CoordinateLabeler : MonoBehaviour
     private Color _defaultColor = Color.white;
     [SerializeField]
     private Color _blockedColor = Color.red;
+    [SerializeField]
+    private Color _exploredColor = Color.blue;
+    [SerializeField]
+    private Color _pathColor = Color.yellow;
 
     TextMeshPro _label;
     Vector2Int _coordinates = new Vector2Int();
-    Waypoint _waypoint;
+    GridManager _gridManager;
     private void Awake()
     {
-        _waypoint = GetComponentInParent<Waypoint>();
+        _gridManager = FindObjectOfType<GridManager>();
         _label = GetComponent<TextMeshPro>();
         _label.enabled = false;
         DisplayCoordinates(); //to run the script once (per tile) in runtime
@@ -38,7 +42,17 @@ public class CoordinateLabeler : MonoBehaviour
     }
     void SetLabelColor()
     {
-        if (_waypoint.IsPlaceable)
+        var node = _gridManager?.GetNode(_coordinates);
+        if (node == null)
+            return;
+        if (node.IsPath)
+        {
+            _label.color = _pathColor;
+        } else if(node.IsExplored)
+        {
+            _label.color = _exploredColor;
+        }
+        else if (node.IsWalkable)
         {
             _label.color = _defaultColor;
         } else
@@ -52,12 +66,13 @@ public class CoordinateLabeler : MonoBehaviour
     }
     void DisplayCoordinates()
     {
-        _coordinates.x = Mathf.RoundToInt(transform.parent.position.x/ UnityEditor.EditorSnapSettings.move.x);
-        _coordinates.y = Mathf.RoundToInt(transform.parent.position.z/ UnityEditor.EditorSnapSettings.move.z);
+        if (_gridManager == null)
+            return;
+        _coordinates = _gridManager.GetCoordinatesFromPosition(transform.parent.position);
         _label.text = $"{_coordinates.x},{_coordinates.y}";
     }
     void UpdateObjectName()
     {
-        transform.parent.name = $"{_coordinates.ToString()}";
+        transform.parent.name = $"{_coordinates}";
     }
 }

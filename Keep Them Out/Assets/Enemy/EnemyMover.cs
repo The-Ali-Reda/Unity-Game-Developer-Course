@@ -7,7 +7,6 @@ using UnityEngine;
 public class EnemyMover : MonoBehaviour
 {
 
-    private List<Waypoint> path = new List<Waypoint>();
     [SerializeField]
     [Range(0,5)]
     private float _speed = 1f;
@@ -15,43 +14,50 @@ public class EnemyMover : MonoBehaviour
     [SerializeField]
     [Range(0, 5)]
     private float _rotationSpeed = 1f;
-
+    
+    private List<Node> path = new List<Node>();
     private GameObject enemyMesh;
     private Enemy _enemy;
+    private GridManager _gridManager;
+    private PathFinder _pathFinder;
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         _enemy = GetComponent<Enemy>();
         enemyMesh = GetComponentInChildren<MeshRenderer>().gameObject;
+        _gridManager = FindObjectOfType<GridManager>();
+        _pathFinder = FindObjectOfType<PathFinder>();
     }
     private void OnEnable()
     {
-        FindPath();
         ReturnToStart();
-        StartCoroutine(FollowPath());
+        RecalculatePath(true);
     }
-    void FindPath()
+    private void RecalculatePath(bool resetPath)
     {
+        Vector2Int coords = new Vector2Int();
+        StopAllCoroutines();
         path.Clear();
-        var parent = GameObject.FindGameObjectWithTag("Path"); 
-        foreach(Transform child in parent.transform)
-        {
-            var waypointComponent = child.GetComponent<Waypoint>();
-            if(waypointComponent!=null)
-                path.Add(waypointComponent);
-        }
+        if (resetPath)
+            coords = _pathFinder.StartCoordinates;
+        else
+            coords = _gridManager.GetCoordinatesFromPosition(transform.position);
+        path = _pathFinder.GetNewPath(coords);
+        StartCoroutine(FollowPath());
 
     }
-    void ReturnToStart()
+    private void ReturnToStart()
     {
-        transform.position = path[0].transform.position;
+        transform.position = _gridManager.GetPositionFromCoordinates(_pathFinder.StartCoordinates);
     }
-    IEnumerator FollowPath()
+    private IEnumerator FollowPath()
     {
-        foreach(var waypoint in path)
+        for (int i= 1; i < path.Count; i++)
         {
+
+            var waypoint = path[i];
             var startPosition = transform.position;
-            var endPosition = waypoint.transform.position;
+            var endPosition = _gridManager.GetPositionFromCoordinates(waypoint.Coordinates);
             float travelPercent = 0f;
             //transform.LookAt looks instantly at the target, the code in the region below is for smooth rotation at corners
             //transform.LookAt(endPosition);
