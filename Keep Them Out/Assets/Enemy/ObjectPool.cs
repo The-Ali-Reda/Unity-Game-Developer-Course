@@ -49,7 +49,7 @@ public class ObjectPool : MonoBehaviour
         {
             if (!enemy.activeInHierarchy)
             {
-                enabled = true;
+                //enabled = true;
                 enemy.SetActive(true);
                 break;
             }    

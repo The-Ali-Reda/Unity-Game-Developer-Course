@@ -20,6 +20,7 @@ public class EnemyMover : MonoBehaviour
     private Enemy _enemy;
     private GridManager _gridManager;
     private PathFinder _pathFinder;
+    private bool _started = false;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -30,6 +31,15 @@ public class EnemyMover : MonoBehaviour
     }
     private void OnEnable()
     {
+        if (_started)
+        {
+            ReturnToStart();
+            RecalculatePath(true);
+        }
+    }
+    private void Start()
+    {
+        _started = true;
         ReturnToStart();
         RecalculatePath(true);
     }

@@ -6,6 +6,8 @@ public class Tower : MonoBehaviour
 {
     [SerializeField]
     private int _cost = 50;
+    [SerializeField]
+    private float _delay = 0.5f;
     private Bank _bank;
     private Bank bank
     {
@@ -16,6 +18,31 @@ public class Tower : MonoBehaviour
                 _bank = FindObjectOfType<Bank>();
             }
             return _bank;
+        }
+    }
+    private void Start()
+    {
+        StartCoroutine(Build());
+    }
+    private IEnumerator Build()
+    {
+        foreach(Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+            foreach(Transform grandChild in child)
+            {
+                grandChild.gameObject.SetActive(false);
+            }
+        }
+
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+            yield return new WaitForSeconds(_delay);
+            foreach (Transform grandChild in child)
+            {
+                grandChild.gameObject.SetActive(true);
+            }
         }
     }
     public bool CreateTower(Vector3 position)

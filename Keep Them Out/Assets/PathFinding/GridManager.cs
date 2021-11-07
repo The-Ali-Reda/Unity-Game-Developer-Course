@@ -22,10 +22,6 @@ public class GridManager : MonoBehaviour
             return null;
         return _grid[coords];
     }
-    private void Start()
-    {
-        
-    }
     private void CreateGrid()
     {
         for (int x = 0; x < _gridSize.x; x++)
@@ -42,7 +38,7 @@ public class GridManager : MonoBehaviour
     {
         if (_grid.ContainsKey(coordinates))
         {
-            Debug.Log($"Blocking {coordinates}");
+            //Debug.Log($"Blocking {coordinates}");
             Grid[coordinates].IsWalkable = false;
         }
     }
